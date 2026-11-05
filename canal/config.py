@@ -12,7 +12,7 @@ class Parametros:
     # Condición de salida: "cero" (vx = 0) o "neumann" (vx(Nx) = vx(Nx-1))
     salida: str = "cero"
     # Valores iniciales: "exponencial", "difusion" o "constante"
-    perfil_inicial: str = "exponencial"
+    perfil_inicial: str = "constante"
     vy0: float = 0.01
     # Newton-Raphson
     metodo: str = "jacobi"          # inversa, directo, richardson, jacobi, gauss-seidel, ...

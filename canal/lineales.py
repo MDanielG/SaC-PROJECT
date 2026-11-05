@@ -64,7 +64,7 @@ class TriangularInferior:
     def __init__(self, A):
         A = A.tocsr()
         self.N = N = A.shape[0] // 2
-        self.Cyx = A[N:, :N].tocsr()
+        self.Cyx = A[N:, :N].diagonal()
         self.bandas = []
         for B in (A[:N, :N], A[N:, N:]):
             L = sp.tril(B).tocoo()
@@ -76,7 +76,7 @@ class TriangularInferior:
     def resolver(self, r):
         N = self.N
         z1, _ = dtbtrs(self.bandas[0], r[:N, None], uplo="L")
-        z2, _ = dtbtrs(self.bandas[1], (r[N:] - self.Cyx @ z1[:, 0])[:, None], uplo="L")
+        z2, _ = dtbtrs(self.bandas[1],(r[N:] - self.Cyx * z1[:, 0])[:, None],uplo="L")
         return np.concatenate([z1[:, 0], z2[:, 0]])
 
 

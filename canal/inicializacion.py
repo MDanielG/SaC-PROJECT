@@ -24,7 +24,7 @@ def condicion_inicial(canal, perfil="exponencial", vy0=0.01):
         vx = np.full((m.nx, m.ny), 0.5 * canal.V0)
     else:
         raise ValueError(f"perfil desconocido: {perfil}. Opciones: {PERFILES}")
-    vy = vy0 * canal.V0 * np.sin(np.pi * I / m.Nx) * np.sin(np.pi * Jj / m.Ny)
+    vy = np.full((m.nx, m.ny), 0.01 * canal.V0)
     vx, vy = fronteras.aplicar(canal, vx, vy)
     return m.unir(vx, vy)
 
